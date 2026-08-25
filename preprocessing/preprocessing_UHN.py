@@ -8,6 +8,8 @@ import numpy as np
 from autoreject import AutoReject #Auto rejecting bad epoch
 import pandas as pd
 from collections import Counter #For counting repeating numbers/entries
+from PIL import Image
+Image.MAX_IMAGE_PIXELS = None #No more crashing due to PIL default error 'DecompressionBombError'
 
 """
 Preprocessing steps
@@ -620,6 +622,7 @@ def main():
             should come here
             """    
             raw = mne.io.read_raw_ant(file, preload=False)
+            raw.crop(tmin=10.0) #Remove the first 10s
             # crop_signal(raw=raw)
             raw.load_data()
             set_montage(raw=raw, report=report, type='standard_1005')
