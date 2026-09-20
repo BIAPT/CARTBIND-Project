@@ -1,2 +1,6 @@
 #don't track this dir
 others/
+#don't track the patient record
+labels/CARTBIND_for_Andrew_labels.xlsx
+labels/clustered_label.xlsx
+
