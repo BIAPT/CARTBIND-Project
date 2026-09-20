@@ -157,7 +157,7 @@ def filter_signal(raw, report, l_freq=0.5, h_freq=45.0, notch=60, downsample=250
     filter_ds = raw_filtered.resample(downsample)
 
     #Autoreject bad channels
-    autoreject_bads_ch(signal=filter_ds, report=report, zscore_thresh=2.0, n_fft=2048, fmax=45)
+    autoreject_bads_ch(signal=filter_ds, report=report, zscore_thresh=2.0, samp_freq=1000, n_fft=2048, fmax=45)
     # filter_ds.compute_psd(fmax=50, picks='eeg').plot()
     # plt.show(block=True)
     # #For manual bad channel selection
@@ -414,7 +414,7 @@ For the report, the following should be marked
 1. What channels are marked bad + total #
 2. percentage of region thrown out (ch in specific region. ex. frontal)
 """
-def autoreject_bads_ch(signal, report, zscore_thresh, n_fft=2048, fmax=45.0):
+def autoreject_bads_ch(signal, report, zscore_thresh, samp_freq,n_fft=2048, fmax=45.0):
     #computing psd
     spectrum = signal.compute_psd(fmax=fmax, picks='eeg', n_fft=n_fft)
     psd, freq = spectrum.get_data(return_freqs=True)
